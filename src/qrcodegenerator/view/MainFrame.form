@@ -47,13 +47,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="gerarButton" pref="96" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="salvarButton" pref="99" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                  <Component id="imprimirButton" pref="111" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="gerarButton" min="-2" pref="156" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="salvarButton" pref="161" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -83,7 +81,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="gerarButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="salvarButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="imprimirButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="qrCodeImage" pref="258" max="32767" attributes="0"/>
@@ -112,15 +109,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvarButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="qrCodeImage">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sem Imagem"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="imprimirButton">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Imprimir"/>
           </Properties>
         </Component>
       </SubComponents>

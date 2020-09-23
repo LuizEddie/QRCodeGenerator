@@ -13,28 +13,10 @@ import javax.swing.JOptionPane;
  * @author Luiz
  */
 public class QrcodeModel {
-    private String nome;
-    private final String formato = "png";
-    private static String path;
+    private static final String formato = "png";
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getFormato() {
+    public static String getFormato() {
         return formato;
-    }
-
-    public static String getPath() {
-        return path;
-    }
-
-    public static void setPath(String path) {
-        QrcodeModel.path = path;
     }
        
 }

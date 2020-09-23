@@ -21,11 +21,11 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void getImage(){
-        String path = QrcodeModel.getPath();
-        System.out.println(path + "aS");
-        ImageIcon imgIcon = new ImageIcon(path);
-        imgIcon.setImage(imgIcon.getImage().getScaledInstance(300, 250, 100));
+    public void getImage(String texto){
+        QrcodeController qrController = new QrcodeController();
+        
+        ImageIcon imgIcon = new ImageIcon();
+        imgIcon.setImage(qrController.gerarImageIcon(texto).getImage().getScaledInstance(300, 250, 100));
         qrCodeImage.setIcon(imgIcon);
         qrCodeImage.setText("");
     }
@@ -46,7 +46,6 @@ public class MainFrame extends javax.swing.JFrame {
         gerarButton = new javax.swing.JButton();
         salvarButton = new javax.swing.JButton();
         qrCodeImage = new javax.swing.JLabel();
-        imprimirButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gerador QRCode");
@@ -63,10 +62,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         salvarButton.setText("Salvar");
+        salvarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarButtonActionPerformed(evt);
+            }
+        });
 
         qrCodeImage.setText("Sem Imagem");
-
-        imprimirButton.setText("Imprimir");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,11 +76,9 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(gerarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                .addGap(8, 8, 8)
-                .addComponent(salvarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                .addGap(9, 9, 9)
-                .addComponent(imprimirButton, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(gerarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salvarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -103,8 +103,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(gerarButton)
-                    .addComponent(salvarButton)
-                    .addComponent(imprimirButton))
+                    .addComponent(salvarButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(qrCodeImage, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addGap(21, 21, 21))
@@ -128,10 +127,17 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void gerarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarButtonActionPerformed
         // TODO add your handling code here:
-        QrcodeController controller = new QrcodeController();
-        controller.gerarQRCode(this.qrCodeTextField.getText());
-        this.getImage();
+        /*QrcodeController controller = new QrcodeController();
+        controller.gerarQRCode(this.qrCodeTextField.getText());*/
+        this.getImage(this.qrCodeTextField.getText());
     }//GEN-LAST:event_gerarButtonActionPerformed
+
+    private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
+        // TODO add your handling code here:
+        QrcodeController qrController = new QrcodeController();
+        
+        qrController.choosePath(this.qrCodeTextField.getText());
+    }//GEN-LAST:event_salvarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,7 +177,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton gerarButton;
-    private javax.swing.JButton imprimirButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel qrCodeImage;
     private javax.swing.JTextField qrCodeTextField;
