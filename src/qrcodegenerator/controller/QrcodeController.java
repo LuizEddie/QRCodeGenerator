@@ -9,11 +9,11 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.print.*;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.logging.Level;
@@ -28,7 +28,7 @@ import qrcodegenerator.model.QrcodeModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-public class QrcodeController {
+public class QrcodeController{
     
     public void choosePath(String texto){
         if(texto == null || texto.isEmpty()){
@@ -38,7 +38,7 @@ public class QrcodeController {
             
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             
-            if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
+            if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
                 String path = chooser.getSelectedFile().getAbsolutePath();
                 this.saveImage(texto, path);
             }
@@ -124,4 +124,26 @@ public class QrcodeController {
         }
         return new ImageIcon(imageBytes);
     }
+    
+    public void printImage(Image image){
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setPrintable(new Printable() {
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                System.out.println(pageIndex);
+                if(pageIndex != 0){
+                    return NO_SUCH_PAGE;
+                }
+                graphics.drawImage(image,100,100, null);
+                System.out.println("Imprimindo");
+                return PAGE_EXISTS;
+            }
+        });
+        
+        try{
+            pj.print();
+        }catch(PrinterException e){
+            e.printStackTrace();
+        }
+    }
 }
+
