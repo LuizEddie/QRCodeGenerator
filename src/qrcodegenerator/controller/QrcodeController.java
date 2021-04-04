@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.print.*;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -35,12 +36,12 @@ public class QrcodeController{
             JOptionPane.showMessageDialog(null, "Insira o qrcode!");
         }else{
             JFileChooser chooser = new JFileChooser();
-            
-            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            
+            chooser.setSelectedFile(new File(texto));
+            chooser.setDialogTitle("Salvar");
             if(chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION){
-                String path = chooser.getSelectedFile().getAbsolutePath();
-                this.saveImage(texto, path);
+                String path = chooser.getSelectedFile().getParent();
+                String name = chooser.getSelectedFile().getName();
+                this.saveImage(texto, name, path);
             }
         }
     }
@@ -77,12 +78,12 @@ public class QrcodeController{
         }  
     }*/    
     
-    public void saveImage(String texto, String path){
+    public void saveImage(String texto, String name, String path){
         try {
             BitMatrix qrCode = this.gerarQrCode(texto);
             String formato = QrcodeModel.getFormato();
             
-            Path pathReal = FileSystems.getDefault().getPath(path + "/" + texto + "." + formato);
+            Path pathReal = FileSystems.getDefault().getPath(path + "/" + name +  "." + formato);
             MatrixToImageWriter.writeToPath(qrCode, formato, pathReal);
             JOptionPane.showMessageDialog(null, "Imagem salva com sucesso");
         } catch (IOException ex) {
